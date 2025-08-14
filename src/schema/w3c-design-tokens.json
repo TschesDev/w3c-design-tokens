@@ -88,9 +88,7 @@
           ]
         }
       },
-      "required": [
-        "$value"
-      ],
+      "required": ["$value"],
       "additionalProperties": false
     },
     "group": {
@@ -149,10 +147,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "colorSpace",
-        "components"
-      ]
+      "required": ["colorSpace", "components"]
     },
     "dimension": {
       "type": "object",
@@ -162,16 +157,10 @@
         },
         "unit": {
           "type": "string",
-          "enum": [
-            "px",
-            "rem"
-          ]
+          "enum": ["px", "rem"]
         }
       },
-      "required": [
-        "value",
-        "unit"
-      ]
+      "required": ["value", "unit"]
     },
     "fontFamily": {
       "oneOf": [
@@ -206,16 +195,10 @@
         },
         "unit": {
           "type": "string",
-          "enum": [
-            "ms",
-            "s"
-          ]
+          "enum": ["ms", "s"]
         }
       },
-      "required": [
-        "value",
-        "unit"
-      ]
+      "required": ["value", "unit"]
     },
     "cubicBezier": {
       "type": "array",
@@ -300,13 +283,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "color",
-        "offsetX",
-        "offsetY",
-        "blur",
-        "spread"
-      ]
+      "required": ["color", "offsetX", "offsetY", "blur", "spread"]
     },
     "gradient": {
       "type": "array",
@@ -338,10 +315,7 @@
             ]
           }
         },
-        "required": [
-          "color",
-          "position"
-        ]
+        "required": ["color", "position"]
       }
     },
     "typography": {
@@ -448,11 +422,7 @@
           ]
         }
       },
-      "required": [
-        "color",
-        "width",
-        "style"
-      ]
+      "required": ["color", "width", "style"]
     },
     "strokeStyle": {
       "oneOf": [
@@ -488,17 +458,10 @@
             },
             "lineCap": {
               "type": "string",
-              "enum": [
-                "round",
-                "butt",
-                "square"
-              ]
+              "enum": ["round", "butt", "square"]
             }
           },
-          "required": [
-            "dashArray",
-            "lineCap"
-          ]
+          "required": ["dashArray", "lineCap"]
         }
       ]
     },
@@ -539,11 +502,7 @@
           ]
         }
       },
-      "required": [
-        "duration",
-        "delay",
-        "timingFunction"
-      ]
+      "required": ["duration", "delay", "timingFunction"]
     }
   }
 }
