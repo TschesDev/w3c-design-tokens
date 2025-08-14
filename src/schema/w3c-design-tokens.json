@@ -1,0 +1,549 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tsches.dev/schema/w3c-design-tokens.json",
+  "title": "W3C Design Tokens Format",
+  "description": "JSON Schema for W3C Design Tokens specification draft.",
+  "type": "object",
+  "patternProperties": {
+    "^[^${}.][^{}.]*$": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/token"
+        },
+        {
+          "$ref": "#/$defs/group"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "token": {
+      "type": "object",
+      "properties": {
+        "$value": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/$defs/color"
+            },
+            {
+              "$ref": "#/$defs/dimension"
+            },
+            {
+              "$ref": "#/$defs/fontFamily"
+            },
+            {
+              "$ref": "#/$defs/fontWeight"
+            },
+            {
+              "$ref": "#/$defs/duration"
+            },
+            {
+              "$ref": "#/$defs/cubicBezier"
+            },
+            {
+              "$ref": "#/$defs/shadow"
+            },
+            {
+              "$ref": "#/$defs/gradient"
+            },
+            {
+              "$ref": "#/$defs/typography"
+            },
+            {
+              "$ref": "#/$defs/border"
+            },
+            {
+              "$ref": "#/$defs/strokeStyle"
+            },
+            {
+              "$ref": "#/$defs/transition"
+            }
+          ]
+        },
+        "$type": {
+          "type": "string"
+        },
+        "$description": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        },
+        "$deprecated": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "$value"
+      ],
+      "additionalProperties": false
+    },
+    "group": {
+      "type": "object",
+      "properties": {
+        "$description": {
+          "type": "string"
+        },
+        "$type": {
+          "type": "string"
+        },
+        "$extensions": {
+          "type": "object"
+        },
+        "$deprecated": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "patternProperties": {
+        "^[^${}.][^{}.]*$": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/token"
+            },
+            {
+              "$ref": "#/$defs/group"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "color": {
+      "type": "object",
+      "properties": {
+        "colorSpace": {
+          "type": "string"
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "alpha": {
+          "type": "number"
+        },
+        "hex": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "colorSpace",
+        "components"
+      ]
+    },
+    "dimension": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "px",
+            "rem"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "unit"
+      ]
+    },
+    "fontFamily": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "fontWeight": {
+      "oneOf": [
+        {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "duration": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "ms",
+            "s"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "unit"
+      ]
+    },
+    "cubicBezier": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "shadow": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/shadowObject"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shadowObject"
+          }
+        }
+      ]
+    },
+    "shadowObject": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/color"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "offsetX": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dimension"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "offsetY": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dimension"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "blur": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dimension"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "spread": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dimension"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "inset": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "color",
+        "offsetX",
+        "offsetY",
+        "blur",
+        "spread"
+      ]
+    },
+    "gradient": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/color"
+              },
+              {
+                "type": "string",
+                "pattern": "^\\{[^{}]+\\}$"
+              }
+            ]
+          },
+          "position": {
+            "oneOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "string",
+                "pattern": "^\\{[^{}]+\\}$"
+              }
+            ]
+          }
+        },
+        "required": [
+          "color",
+          "position"
+        ]
+      }
+    },
+    "typography": {
+      "type": "object",
+      "properties": {
+        "fontFamily": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/fontFamily"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "fontSize": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dimension"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "fontWeight": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/fontWeight"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "letterSpacing": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dimension"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "lineHeight": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        }
+      },
+      "required": [
+        "fontFamily",
+        "fontSize",
+        "fontWeight",
+        "letterSpacing",
+        "lineHeight"
+      ]
+    },
+    "border": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/color"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "width": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dimension"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "style": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/strokeStyle"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        }
+      },
+      "required": [
+        "color",
+        "width",
+        "style"
+      ]
+    },
+    "strokeStyle": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "solid",
+            "dashed",
+            "dotted",
+            "double",
+            "groove",
+            "ridge",
+            "outset",
+            "inset"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "dashArray": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/dimension"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^\\{[^{}]+\\}$"
+                  }
+                ]
+              }
+            },
+            "lineCap": {
+              "type": "string",
+              "enum": [
+                "round",
+                "butt",
+                "square"
+              ]
+            }
+          },
+          "required": [
+            "dashArray",
+            "lineCap"
+          ]
+        }
+      ]
+    },
+    "transition": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/duration"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "delay": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/duration"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        },
+        "timingFunction": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/cubicBezier"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\{[^{}]+\\}$"
+            }
+          ]
+        }
+      },
+      "required": [
+        "duration",
+        "delay",
+        "timingFunction"
+      ]
+    }
+  }
+}
